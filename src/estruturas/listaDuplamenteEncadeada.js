@@ -22,4 +22,22 @@ module.exports = class DoublyLinkedList {
 
         this.count++;
     }
+     getElementAt(index) {
+  if (index < 0 || index >= this.count) return undefined;
+
+  let current;
+  if (index < this.count / 2) {
+    current = this.head;
+    for (let i = 0; i < index; i++) {
+      current = current.next;
+    }
+  } else {
+    current = this.tail;
+    for (let i = this.count - 1; i > index; i--) {
+      current = current.prev; 
+    }
+  }
+
+  return current;
+}
 }
