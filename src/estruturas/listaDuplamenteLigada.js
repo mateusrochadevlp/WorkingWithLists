@@ -1,10 +1,4 @@
-class DoublyNode {
-    constructor(element) {
-        this.element = element;
-        this.next = null;
-        this.prev = null;
-    }
-}
+const {DoublyNode} = require ('./src/estruturas/node')
 
 module.exports = class DoublyLinkedList {
     constructor() {
