@@ -1,4 +1,4 @@
-const {DoublyNode} = require ('./src/estruturas/node')
+const { DoublyNode } = require('./node')
 
 module.exports = class DoublyLinkedList {
     constructor() {
@@ -6,8 +6,6 @@ module.exports = class DoublyLinkedList {
         this.tail = null;
         this.count = 0;
     }
-
-    // Insere no fim
     push(element) {
         const node = new DoublyNode(element);
 
@@ -22,24 +20,54 @@ module.exports = class DoublyLinkedList {
 
         this.count++;
     }
-     getElementAt(index) {
-  if (index < 0 || index >= this.count) return undefined;
+    getElementAt(index) {
+        if (index < 0 || index >= this.count) return undefined;
 
-  let current;
-  if (index < this.count / 2) {
-    current = this.head;
-    for (let i = 0; i < index; i++) {
-      current = current.next;
-    }
-  } else {
-    current = this.tail;
-    for (let i = this.count - 1; i > index; i--) {
-      current = current.prev; 
-    }
-  }
+        let current;
+        if (index < this.count / 2) {
+            current = this.head;
+            for (let i = 0; i < index; i++) {
+                current = current.next;
+            }
+        } else {
+            current = this.tail;
+            for (let i = this.count - 1; i > index; i--) {
+                current = current.prev;
+            }
+        }
 
-  return current;
-}
+        return current;
+    }
+    removeAt(index) {
+        if (index < 0 || index >= this.count) return undefined;
+
+        let current;
+
+        if (index === 0) {
+            current = this.head
+            this.head = this.head.next
+            if (this.head) {
+                this.head.prev = null
+            } else {
+                this.tail = null
+            }
+        }
+        else if (index === this.count - 1) {
+            current = this.tail
+            this.tail = this.tail.prev;
+            if(this.tail) {
+            this.tail.next = null
+            }
+        } else {
+            current = this.getElementAt(index)
+            const previous = current.prev;
+            const next = current.next;
+            previous.next = next;
+            next.prev = previous;
+        }
+        this.count--;
+        return current.element;
+    }
     insert(element, index) {
         if (index >= 0 && index <= this.count) {
             const node = new DoublyNode(element);
@@ -70,5 +98,10 @@ module.exports = class DoublyLinkedList {
             return true;
         }
         return false;
+    }
+    clear() {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
     }
 }
