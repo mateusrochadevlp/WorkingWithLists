@@ -14,6 +14,8 @@ module.exports = class CircularLinkedList {
             this.head = node;
             this.tail = node;
             node.next = this.head;
+
+            this.currentNode = node;
         } else {
             this.tail.next = node;
             node.next = this.head;
@@ -36,3 +38,4 @@ module.exports = class CircularLinkedList {
 
         return -1;
     }
+
