@@ -63,4 +63,20 @@ module.exports = class CircularLinkedList {
         this.currentNode = previous;
         return this.currentNode.element;
     }
+    getElementAt(index) {
+        if (index < 0 || index >= this.count) return null;
+        let current = this.head;
+
+        for (let i = 0; i < index; i++) current = current.next;
+
+        return current;
+    }
+    remove(element) {
+        const index = this.indexOf(element);
+        if (index === -1) return false;
+        
+        return this.removeAt(index);
+    }
+
 }
+
