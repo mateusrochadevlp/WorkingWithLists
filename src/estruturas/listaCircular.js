@@ -21,6 +21,7 @@ module.exports = class CircularLinkedList {
             node.next = this.head;
             this.tail = node;
         }
+
         this.count++;
     }
 
@@ -39,3 +40,27 @@ module.exports = class CircularLinkedList {
         return -1;
     }
 
+    getCurrent() {
+        if (!this.currentNode) return null;
+        return this.currentNode.element;
+    }
+
+    moveNext() {
+        if (!this.currentNode) return null;
+        this.currentNode = this.currentNode.next;
+        return this.currentNode.element;
+    }
+
+    movePrevious() {
+        if (!this.currentNode) return null;
+
+        let previous = this.head;
+
+        while (previous.next !== this.currentNode) {
+            previous = previous.next;
+        }
+
+        this.currentNode = previous;
+        return this.currentNode.element;
+    }
+}
