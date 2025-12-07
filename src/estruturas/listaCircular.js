@@ -5,6 +5,7 @@ module.exports = class CircularLinkedList {
         this.head = null;
         this.tail = null;
         this.count = 0;
+        this.currentNode = null;
     }
 
     insert(element) {
@@ -74,38 +75,60 @@ module.exports = class CircularLinkedList {
     remove(element) {
         const index = this.indexOf(element);
         if (index === -1) return false;
-        
+
         return this.removeAt(index);
     }
 
     removeAt(index) {
-    if (index < 0 || index >= this.count) return undefined;
+        if (index < 0 || index >= this.count) return undefined;
 
-    let removed;
+        let removed;
 
-    if (index === 0) {
-        removed = this.head;
+        if (index === 0) {
+            removed = this.head;
 
-        if (this.count === 1) {
-            this.head = null;
-            this.tail = null;
+            if (this.count === 1) {
+                this.head = null;
+                this.tail = null;
+                this.currentNode = null;
+            } else {
+                this.head = this.head.next;
+                this.tail.next = this.head;
+
+                if (this.currentNode === removed) {
+                    this.currentNode = this.head;
+                }
+            }
+
         } else {
-            this.head = this.head.next;
-            this.tail.next = this.head;
+            const previous = this.getElementAt(index - 1);
+            removed = previous.next;
+            previous.next = removed.next;
+
+            if (removed === this.tail) {
+                this.tail = previous;
+            }
+
+            if (this.currentNode === removed) {
+                this.currentNode = previous.next;
+            }
         }
 
-    } else {
-        const previous = this.getElementAt(index - 1);
-        removed = previous.next;
-        previous.next = removed.next;
-
-        if (removed === this.tail) {
-            this.tail = previous;
-        }
+        this.count--;
+        return removed.element;
+    }
+    clear() {
+        this.head = null;
+        this.tail = null;
+        this.currentNode = null;
+        this.count = 0;
+    }
+    size() {
+        return this.count;
     }
 
-    this.count--;
-    return removed.element;
+    isEmpty() {
+        return this.count === 0;
     }
 
 }

@@ -6,7 +6,7 @@ module.exports = class DoublyLinkedList {
         this.tail = null;
         this.count = 0;
     }
-    push(element) {
+    insert(element) {
         const node = new DoublyNode(element);
 
         if (!this.head) {
@@ -20,6 +20,32 @@ module.exports = class DoublyLinkedList {
 
         this.count++;
     }
+    remove(node) {
+        if (!node) return null;
+        if (node.prev) node.prev.next = node.next;
+        else this.head = node.next;
+        if (node.next) node.next.prev = node.prev;
+        else this.tail = node.prev;
+        this.count--;
+        return node.value;
+    }
+    getNext(node) { return node ? node.next : null; }
+
+    getPrev(node) { return node ? node.prev : null; }
+
+    ////////////////////////////////////////////////////////////////////////////
+    removeByValue(element) {
+        let node = this.head
+
+        while (node) {
+            if (node.element === element) {
+               return this.remove(node)
+            }
+            node = node.next
+        }
+         return null
+    }
+    
     getElementAt(index) {
         if (index < 0 || index >= this.count) return undefined;
 
@@ -38,6 +64,7 @@ module.exports = class DoublyLinkedList {
 
         return current;
     }
+
     removeAt(index) {
         if (index < 0 || index >= this.count) return undefined;
 
@@ -55,8 +82,8 @@ module.exports = class DoublyLinkedList {
         else if (index === this.count - 1) {
             current = this.tail
             this.tail = this.tail.prev;
-            if(this.tail) {
-            this.tail.next = null
+            if (this.tail) {
+                this.tail.next = null
             }
         } else {
             current = this.getElementAt(index)
@@ -68,7 +95,8 @@ module.exports = class DoublyLinkedList {
         this.count--;
         return current.element;
     }
-    insert(element, index) {
+
+    insertAt(element, index) {
         if (index >= 0 && index <= this.count) {
             const node = new DoublyNode(element);
             let current = this.head;
@@ -103,5 +131,12 @@ module.exports = class DoublyLinkedList {
         this.head = null;
         this.tail = null;
         this.count = 0;
+    }
+    isEmpty() {
+        return this.count === 0;
+    }
+
+    size() {
+        return this.count
     }
 }
