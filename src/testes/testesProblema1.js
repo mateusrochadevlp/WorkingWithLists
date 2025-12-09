@@ -13,7 +13,7 @@ console.log("Tamanho:", wm.windows.size());
 console.log("Atual:", wm.currentWindow());
 
 console.log("\n==== TESTE: Trocar de janela para frente ====");
-wm.currentNode = wm.windows.head;
+wm.current = wm.windows.head;
 console.log("Inicial:", wm.currentWindow());
 wm.nextWindow();
 wm.nextWindow();
@@ -28,14 +28,14 @@ wm.openWindow("A");
 wm.openWindow("B");
 wm.openWindow("C");
 
-wm.currentNode = wm.windows.head.next;
+wm.current = wm.windows.head.next;
 console.log("Ativa antes:", wm.currentWindow());
 wm.closeCurrentWindow();
 
 console.log("Tamanho:", wm.windows.size());
 
 console.log("\nTeste fechar primeira janela");
-wm.currentNode = wm.windows.head;
+wm.current = wm.windows.head;
 wm.closeCurrentWindow();
 
 console.log("\nTeste fechar última janela");
@@ -57,5 +57,5 @@ console.log("\n==== TESTES DE MÉTODOS ACESSÓRIOS ====");
 wm.openWindow("Nova");
 console.log("size:", wm.windows.size());
 console.log("isEmpty:", wm.windows.isEmpty());
-wm.windows.clear();
+wm.closeAll();
 console.log("isEmpty após clear:", wm.windows.isEmpty());

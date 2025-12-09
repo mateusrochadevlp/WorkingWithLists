@@ -20,32 +20,29 @@ module.exports = class DoublyLinkedList {
 
         this.count++;
     }
-    remove(node) {
-        if (!node) return null;
-        if (node.prev) node.prev.next = node.next;
-        else this.head = node.next;
-        if (node.next) node.next.prev = node.prev;
-        else this.tail = node.prev;
-        this.count--;
-        return node.value;
+    remove(element) {
+        const index = this.indexOf(element);
+        return this.removeAt(index);
     }
     getNext(node) { return node ? node.next : null; }
 
     getPrev(node) { return node ? node.prev : null; }
 
     ////////////////////////////////////////////////////////////////////////////
-    removeByValue(element) {
-        let node = this.head
+    indexOf(element) {
+        let current = this.head;
+        let index = 0;
 
-        while (node) {
-            if (node.element === element) {
-                return this.remove(node)
+        while (current) {
+            if (current.element === element) {
+                return index;
             }
-            node = node.next
+            current = current.next;
+            index++;
         }
-        return null
-    }
 
+        return -1;
+    }
     getElementAt(index) {
         if (index < 0 || index >= this.count) return undefined;
 

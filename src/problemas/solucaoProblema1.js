@@ -41,8 +41,11 @@ module.exports = class windowsManager {
     previousWindow() {
         if (this.current && this.current.prev) {
             this.current = this.current.prev
-            console.log("Janela atual:", this.currentNode ? this.currentNode.element : "null");
-        }
+            console.log("Janela atual:", this.current ? this.current.element : "null");
+        }  else {
+        console.log("Já está na primeira janela ou nenhuma janela ativa.");
+    }
+
     }
     currentWindow() {
         if (this.current) {
