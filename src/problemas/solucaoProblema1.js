@@ -8,6 +8,7 @@ module.exports = class windowsManager {
     openWindow(title) {
         this.windows.insert(title)
         this.current = this.windows.tail
+        console.log(`Abrindo janela: ${title}`);
     }
     closeCurrentWindow() {
         if (!this.current) return null;
@@ -27,16 +28,20 @@ module.exports = class windowsManager {
         if (next) this.current = next;
         else if (prev) this.current = prev;
         else this.current = null;
+
+        console.log("Janela fechada. Nova janela atual:", this.current ? this.current.element : "null")
     }
 
     nextWindow() {
         if (this.current && this.current.next) {
             this.current = this.current.next
+            console.log("Janela atual:", this.current ? this.current.element : "null");
         }
     }
     previousWindow() {
         if (this.current && this.current.prev) {
             this.current = this.current.prev
+            console.log("Janela atual:", this.currentNode ? this.currentNode.element : "null");
         }
     }
     currentWindow() {
@@ -48,5 +53,6 @@ module.exports = class windowsManager {
     closeAll() {
         this.windows.clear()
         this.current = null
+        console.log("Todas as janelas foram fechadas.");
     }
 }
