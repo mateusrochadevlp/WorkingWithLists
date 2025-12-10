@@ -12,6 +12,6 @@ class SingleNode {
   }
 }
 function defaultEquals(a, b) {
-return a === b;
+  return a === b;
 }
 module.exports = { DoublyNode, SingleNode, defaultEquals };

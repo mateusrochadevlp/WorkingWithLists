@@ -24,10 +24,23 @@ module.exports = class DoublyLinkedList {
         const index = this.indexOf(element);
         return this.removeAt(index);
     }
-    getNext(node) { return node ? node.next : null; }
-
-    getPrev(node) { return node ? node.prev : null; }
-
+    getNext(element) {
+        const index = this.indexOf(element);
+        if (index === -1 || index === this.count - 1) {
+            return null;  // Elemento não encontrado ou é o último
+        }
+        const nextNode = this.getElementAt(index + 1);
+        return nextNode ? nextNode.element : null;
+    }
+    
+    getPrev(element) {
+        const index = this.indexOf(element);
+        if (index === -1 || index === 0) {
+            return null;  // Elemento não encontrado ou é o primeiro
+        }
+        const prevNode = this.getElementAt(index - 1);
+        return prevNode ? prevNode.element : null;
+    }
     ////////////////////////////////////////////////////////////////////////////
     indexOf(element) {
         let current = this.head;

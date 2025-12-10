@@ -88,14 +88,15 @@ module.exports = class CircularLinkedList {
             removed = this.head;
 
             if (this.count === 1) {
+
                 this.head = null;
                 this.tail = null;
                 this.currentNode = null;
             } else {
-                this.head = this.head.next;
+                this.head = this.head.next; //atualiza a cabeça para o próximo nó.
                 this.tail.next = this.head;
 
-                if (this.currentNode === removed) {
+                if (this.currentNode === removed) { //se o nó atual for a cabeça, atualiza o nó atual para a cabeça.
                     this.currentNode = this.head;
                 }
             }
@@ -103,12 +104,13 @@ module.exports = class CircularLinkedList {
         } else {
             const previous = this.getElementAt(index - 1);
             removed = previous.next;
-            previous.next = removed.next;
+            previous.next = removed.next; // atualiza pra onde previous.next irá apontar
 
             if (removed === this.tail) {
                 this.tail = previous;
+                this.tail.next = this.head
             }
-
+   
             if (this.currentNode === removed) {
                 this.currentNode = previous.next;
             }
